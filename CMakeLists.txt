@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(file_searcher VERSION 0.1 LANGUAGES CXX)
+project(laba8_dop VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -22,24 +22,24 @@ set(PROJECT_HEADERS
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(file_searcher
+    qt_add_executable(laba8_dop
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         ${PROJECT_HEADERS}
         mainwindow.ui
     )
 else()
-    add_executable(file_searcher
+    add_executable(laba8_dop
         ${PROJECT_SOURCES}
         ${PROJECT_HEADERS}
     )
 endif()
 
-target_link_libraries(file_searcher PRIVATE
+target_link_libraries(laba8_dop PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Concurrent
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(file_searcher)
+    qt_finalize_executable(laba8_dop)
 endif()
