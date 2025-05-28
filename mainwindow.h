@@ -27,28 +27,24 @@ public:
 
 
 private slots:
-
-
+    void displayResults(const QVector<QFileInfo>& results);
     void onBrowseClicked();
     void onSearchClicked();
     void onClearClicked();
-    void displayResults(const QVector<QFileInfo>& results);
 
 
 private:
-    void setupConnections();
-    void resetUI();
     Ui::MainWindow *ui;
     QThreadPool m_threadPool;
     FileSearcher *m_searcher = nullptr;
     QFutureWatcher<void> m_watcher;
 
 
+    void setupConnections();
+    void resetUI();
 };
 
 
 #endif // MAINWINDOW_H
-
-
 
 
