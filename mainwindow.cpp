@@ -5,6 +5,7 @@
  #include <QDateTime>
  #include <QTime>
 #include "filesearcher.h"
+
  MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -19,13 +20,11 @@
  void MainWindow::setupConnections() {
     connect(ui->browseButton, &QPushButton::clicked, this, &MainWindow::onBrowseClicked);
     connect(ui->searchButton, &QPushButton::clicked, this, &MainWindow::onSearchClicked);
-    connect(ui->cancelButton, &QPushButton::clicked, this, &MainWindow::onClearClicked);
  }
 
  void MainWindow::resetUI() {
     ui->resultList->clear();
      ui->progressBar->setValue(0);
-    ui->statusLabel->setText("Готово");
  }
 
  void MainWindow::onBrowseClicked() {
@@ -43,9 +42,8 @@
     }
 
     FileSearcher::SearchCriteria criteria;
-    criteria.extension = ui->extensionEdit->text();
-    criteria.content = ui->contentEdit->text();
-    criteria.regex = QRegularExpression(ui->lineEdit_regex->text());
+    criteria.extension = ui->extensionBox->currentText();
+        criteria.regex = QRegularExpression(ui->lineEdit_regex->text());
 
     if (ui->minSizeSpin->value() > 0)
         criteria.minSize = ui->minSizeSpin->value() * 1024;
@@ -60,7 +58,6 @@
         criteria.dateTo = QDateTime(ui->dateEdit_to->date(), QTime(23, 59, 59));
 
     ui->resultList->clear();
-    ui->statusLabel->setText("Поиск...");
 
     QVector<QFileInfo> results = m_searcher->search(rootDir, criteria);
     displayResults(results);
@@ -75,8 +72,7 @@
          ui->resultList->addItem(info.absoluteFilePath());
     }
 
-    ui->statusLabel->setText(results.isEmpty() ? "Файлы не найдены." : "Поиск завершён.");
-     ui->progressBar->setValue(100);
+         ui->progressBar->setValue(100);
  }
 
 
